@@ -1,19 +1,16 @@
 pipeline {
     agent any
-
     tools {
-        nodejs 'NodeJS'
-    }
-
+            nodejs 'NodeJS'
+    } 
     environment {
-        DOCKER_HUB_REPO = 'pradeepaanandh/trial'
-        DOCKER_HUB_CREDENTIALS_ID = 'GitOps-dockerhub'
+            DOCKER_HUB_REPO = 'pradeepaanandh/trial'
+            docker_HUB_CREDENTIALS_ID = 'GitOps-dockerhub'
     }
-
     stages {
         stage('Checkout Github') {
             steps {
-                git branch: 'main', credentialsId: 'GitOps-token-GitHub', url: 'https://github.com/pradeedevops/CICD.git'
+            git branch: 'main', credentialsId: 'GitOps-token-GitHub', url: 'https://github.com/pradeedevops/CICD.git'
             }
         }
 
@@ -34,7 +31,8 @@ pipeline {
 
         stage('Trivy Scan') {
             steps {
-                sh 'trivy image --severity HIGH,CRITICAL --no-progress --format table -o trivy-scan-report.txt ${DOCKER_HUB_REPO}:latest'
+               sh 'trivy image --severity HIGH,CRITICAL --no-progress --format table -o trivy-scan-report.txt ${DOCKER_HUB_REPO}:latest'
+ 
             }
         }
 
@@ -43,8 +41,7 @@ pipeline {
                 script {
                     echo 'pushing docker image to DockerHub...'
                     docker.withRegistry('https://registry.hub.docker.com', "${DOCKER_HUB_CREDENTIALS_ID}") {
-                        dockerImage.push('latest')
-                    }
+                dockerImage.push('latest')
                 }
             }
         }
@@ -77,4 +74,3 @@ pipeline {
         }
     }
 }
-
