@@ -1,7 +1,10 @@
 pipeline {
     agent any
     tools {
-          nodejs 'NodeJS'
+            nodejs 'NodeJS'
+    } 
+    environment {
+            DOCKER_HUB_REPO = 'pradeepaanandh/trial'
     }
     stages {
         stage('Checkout Github') {
@@ -20,6 +23,7 @@ pipeline {
             steps {
                 script {
                     echo 'building docker image...'
+                    docker.build("${DOCKER_HUB_REPO}:latest")
                 }
             }
         }
