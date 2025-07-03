@@ -1,16 +1,10 @@
 pipeline {
 	agent any
-	tools {
-		nodejs 'NodeJS'
-	}
-	environment {
-		DOCKER_HUB_REPO = 'iquantc/iquant-app'
-		DOCKER_HUB_CREDENTIALS_ID = 'gitops-dockerhub'
-	}
 	stages {
 		stage('Checkout Github'){
 			steps {
-			git branch: 'main', credentialsId: 'GitOps-token-GitHub', url: 'https://github.com/pradeedevops/CICD.git'
+			       sh '''
+	  		       echo 'checking out code...'
 			}
 		}		
 		stage('Install node dependencies'){
