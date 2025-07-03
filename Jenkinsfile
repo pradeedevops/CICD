@@ -66,7 +66,7 @@ pipeline {
                     sh '''
                         echo "synchronizing app with ArgoCD..."
                         ARGOCD_PASS=$(kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
-                        argocd login 44.211.76.138:31559 --username admin --password $ARGOCD_PASS --insecure
+                        argocd login 13.233.106.127:30233 --username admin --password $ARGOCD_PASS --insecure
                         argocd app sync argocdjenkins
                     '''
                 }
