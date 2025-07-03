@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout Github') {
             steps {
-            git branch: 'main', credentialsId: 'GitOps-token-GitHub', url: 'https://github.com/pradeedevops/CICD.g
+            git branch: 'main', credentialsId: 'GitOps-token-GitHub', url: 'https://github.com/pradeedevops/CICD.git'
             }
         }
 
